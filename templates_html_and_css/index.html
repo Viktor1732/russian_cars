@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500;700;800&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Российские автомобили</title>
 </head>
 <body>
     <header>
+        <!--nav-->
         <nav class="nav">
             <div class="nav-list">
-                <img class="nav-logo" src="./images/logo/logo.png">
+                <div class="logo-wrap"><img class="nav-logo" src="./images/logo/logo.png"></div>
                 <ul class="nav-items">
-                    <li class="nav-item"><a class="nav-link" href="#!">О сайте</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">О&nbsp;сайте</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">Добавить статью</a> </li>
                     <li class="nav-item"><a class="nav-link" href="#!">Обратная связь</a> </li>
                 </ul>
@@ -23,8 +27,10 @@
             </div>
         </nav>
     </header>
+    <!--main-->
     <section class="main">
         <h1 class="main-h1"></h1>
+        <!-- main-nav -->
         <div class="main-nav">
             <ul class="main-nav-items">
                 <li class="main-nav-item"><a class="main-nav-link" href="#!">Все категории</a></li>
@@ -35,8 +41,9 @@
                 <li class="main-nav-item"><a class="main-nav-link" href="#!">Автобусы</a> </li>
             </ul>
         </div>
+        <!--content-->
         <div class="content">
-            <ul class="content-list">
+            <ul class="content-blocks">
                 <li class="content-block">
                     <div class="block-cat"><p>Категория: Легковые автомобили</p></div>
                     <div class="block-desc">
@@ -79,7 +86,7 @@
                             <h2 class="block-title">ВАЗ-2109</h2>
                             <p class="block-text">Советский и российский переднеприводный автомобиль II группы малого класса
                             с кузовом типа хэтчбек. Разработан и серийно выпускался на Волжском автомобильном заводе в
-                            1987-2004 годах. С 2004 до конца 2011 года вариант ВАЗ-21093 собирался</p>
+                            1987-2004 годах.</p>
                         </div>
                     </div>
                     <div class="block-button">
@@ -173,5 +180,9 @@
             </ul>
         </div>
     </section>
+    <!-- footer -->
+    <footer class="footer">
+        <p class="footer-text">&copy; Copyright 2022, Krasnoyarsk</p>
+    </footer>
 </body>
 </html>
