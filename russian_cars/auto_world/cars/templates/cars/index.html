@@ -2,4 +2,15 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
+
+<ul>
+    {% for p in posts %}
+    <li>
+        {{ p.title }}
+        {{ p.content }}
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock content %}
