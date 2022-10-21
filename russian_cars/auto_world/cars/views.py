@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
-from models import *
+from .models import *
 
 menu = ["О сайте", "Обратная связь", "Добавить статью", "Войти"]
 
