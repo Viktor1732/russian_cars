@@ -1,9 +1,15 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
+menu = ["О сайте", "Обратная связь", "Добавить статью", "Войти"]
+
 
 def index(request):
-    return HttpResponse('Главная страница приложения cars')
+    return render(request, 'cars/index.html', {'menu': menu, 'title': 'Главная страница'})
+
+
+def about(request):
+    return render(request, 'cars/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
 def categories(request, catid):
