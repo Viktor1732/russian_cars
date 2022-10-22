@@ -1,13 +1,16 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
+
 from .models import *
 
-menu = ["О сайте", "Обратная связь", "Добавить статью", "Войти"]
+menu = ["О сайте", "Обратная связь", "Добавить статью"]
+login = ["Регистрация", "Войти"]
 
 
 def index(request):
     posts = Cars.objects.all()
-    return render(request, 'cars/index.html', {'menu': menu, 'title': 'Главная страница', 'posts': posts})
+    return render(request, 'cars/index.html',
+                  {'login': login, 'menu': menu, 'title': 'Главная страница', 'posts': posts})
 
 
 def about(request):
