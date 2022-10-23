@@ -21,28 +21,31 @@ body a {
     display: flex;
     justify-content: space-between;
     background-color: #212529;
-    align-items: center;
 }
 
 .nav-list {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
 }
 
-.logo-wrap {
-    height: 100%;
-    display: flex;
-}
 .nav-logo {
-    height: 50%;
-    width: 50%;
-    margin: auto 50px auto 40px;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    background: url('../images/logo/logo.png');
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-size: 90px 45px;
 }
 
 .nav-items {
     display: flex;
     align-items: center;
-    column-gap: 150px;
+    column-gap: 50px;
 }
 
 .nav-link {
