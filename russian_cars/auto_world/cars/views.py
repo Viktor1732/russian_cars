@@ -34,5 +34,9 @@ def contact(request):
     return HttpResponse('Обратная связь')
 
 
+def show_post(request, post_id):
+    return HttpResponse(f'Отображение статьи с номером id: {post_id}')
+
+
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
