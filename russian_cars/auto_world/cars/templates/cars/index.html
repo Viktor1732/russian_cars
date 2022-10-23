@@ -14,7 +14,7 @@
                     </div>
                     <div class="desc-wrap">
                         <h2 class="block-title">{{ p.title }}</h2>
-                        <p class="block-text">{{ p.content }}</p>
+                        <p class="block-text">{{ p.content|truncatewords:50 }}</p>
                     </div>
                 </div>
                 <div class="block-button">

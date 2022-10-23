@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <link type="text/css" href="{% static 'cars/css/styles.css' %}" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html">
     <link type="text/css" href="{% static 'cars/css/reset.css' %}" rel="stylesheet">
+    <link href="{% static 'cars/images/logo/logo.png' %}" rel="shortcut icon">
 </head>
 <body>
 
@@ -14,7 +16,7 @@
         <!--Nav-->
         <nav class="nav">
             <div class="nav-list">
-                <div class="logo-wrap"><img class="nav-logo" src="static/cars/images/logo/logo.png"></div>
+                <div class="logo-wrap"><img class="nav-logo" src="static/cars/images/logo/logo.png" alt="logo"></div>
                 <ul class="nav-items">
                     {%for m in menu%}
                         <li class="nav-item"><a class="nav-link" href="#!">{{ m }}</a></li>
@@ -23,14 +25,13 @@
             </div>
             <div class="login">
                 <ul class="nav-items">
-                    {%for l in login%}
+                    {% for l in login %}
                         <li class="nav-item"><a class="nav-link" href="#!">{{ l }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
         </nav>
     </header>
-    {% endblock mainmenu %}
 
     <section class="main">
         <h1 class="main-h1"></h1>
@@ -45,6 +46,7 @@
                 <li class="main-nav-item"><a class="main-nav-link" href="#!">Автобусы</a> </li>
             </ul>
         </div>
+    {% endblock mainmenu %}
         <!--content-->
         {%block content%}
         {% endblock content %}

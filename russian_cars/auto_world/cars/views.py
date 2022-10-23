@@ -14,7 +14,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'cars/about.html', {'menu': menu, 'title': 'О сайте'})
+    return render(request, 'cars/about.html', {'menu': menu, 'login': login, 'title': 'О сайте'})
 
 
 def categories(request, catid):
