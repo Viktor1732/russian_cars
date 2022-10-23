@@ -14,7 +14,6 @@ body a {
     font-weight: 500;
 }
 
-
 /* header */
 /* nav*/
 .nav {
@@ -53,16 +52,10 @@ body a {
 .login {
     display: flex;
     margin-right: 40px;
-    column-gap: 50px;
 }
 
-.login-reg {
-    margin-right: 40px;
-    color: #f2f1f0;
-}
-.login-ent {
-    margin-right: 40px;
-    color: #f2f1f0;
+.login .nav-items {
+    column-gap: 35px;
 }
 
 
@@ -139,6 +132,7 @@ body a {
 }
 
 .block-text {
+    width: 100%;
     margin-top: 5px;
     font-size: 15px;
     line-height: 1.5;

@@ -1,16 +1,27 @@
 {% extends 'cars/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-
-<ul>
-    {% for p in posts %}
-    <li>
-        {{ p.title }}
-        {{ p.content }}
-        <hr>
-    </li>
-    {% endfor %}
-</ul>
-
+<div class="content">
+    <ul class="content-blocks">
+        {% for p in posts %}
+            <li class="content-block">
+                <div class="block-cat">
+                    <p>Категория: Легковые автомобили</p>
+                </div>
+                <div class="block-desc">
+                    <div class="desc-image">
+                        <img class="desc-img" src="static/cars/images/content/passenger_cars/vaz-1111.jpg">
+                    </div>
+                    <div class="desc-wrap">
+                        <h2 class="block-title">{{ p.title }}</h2>
+                        <p class="block-text">{{ p.content }}</p>
+                    </div>
+                </div>
+                <div class="block-button">
+                    <a class="block-btn" href="#!">Читать пост</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}
