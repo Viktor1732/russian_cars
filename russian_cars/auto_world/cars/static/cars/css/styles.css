@@ -95,6 +95,13 @@ body a {
     font-weight: 700;
 }
 
+.selected {
+    margin: 30px 0 30px 0;
+    color: #FFA500;
+    font-size: 18px;
+    font-weight: 700;
+}
+
 
 /*content*/
 .content {
