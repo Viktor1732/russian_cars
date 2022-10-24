@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render
 
 from .models import *
@@ -45,6 +45,9 @@ def show_post(request, post_id):
 def show_categories(request, cat_id):
     posts = Cars.objects.filter(cat_id=cat_id)
     cats = Category.objects.all()
+
+    if len(posts) == 0:
+        raise Http404()
 
     context = {
         'cats': cats,
