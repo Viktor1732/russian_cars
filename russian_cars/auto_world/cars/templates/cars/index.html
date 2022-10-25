@@ -11,7 +11,9 @@
                 </div>
                 <div class="block-desc">
                     <div class="desc-image">
-                        <img class="desc-img" src="static/cars/images/content/passenger_cars/vaz-1111.jpg">
+                        {% if p.photo %}
+                        <img class="desc-img" src="{{ p.photo.url }}">
+                        {% endif %}
                     </div>
                     <div class="desc-wrap">
                         <h2 class="block-title">{{ p.title }}</h2>
