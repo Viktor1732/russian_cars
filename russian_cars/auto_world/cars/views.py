@@ -13,10 +13,8 @@ login = ["Регистрация", "Войти"]
 
 def index(request):
     posts = Cars.objects.all()
-    cats = Category.objects.all()
 
     context = {
-        'cats': cats,
         'cat_selected': 0,
         'login': login,
         'menu': menu,
@@ -44,13 +42,11 @@ def show_post(request, post_id):
 
 def show_categories(request, cat_id):
     posts = Cars.objects.filter(cat_id=cat_id)
-    cats = Category.objects.all()
 
     if len(posts) == 0:
         raise Http404()
 
     context = {
-        'cats': cats,
         'cat_selected': cat_id,
         'login': login,
         'menu': menu,
