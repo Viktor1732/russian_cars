@@ -9,12 +9,14 @@ class CarsAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content') #Добавляется строка поиска по заголовку и по контенту.
     list_editable = ('is_published',)
     list_filter = ('is_published', 'time_create')
+    prepopulated_fields = {'slug': ('title',)} #Для автоматического формирования слага
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)} #Для автоматического формирования слага
 
 #Для регистрации в админ-панели.
 admin.site.register(Cars, CarsAdmin)

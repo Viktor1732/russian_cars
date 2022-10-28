@@ -36,8 +36,8 @@ def contact(request):
     return HttpResponse('Обратная связь')
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(Cars, pk=post_id)
+def show_post(request, post_slug):
+    post = get_object_or_404(Cars, slug=post_slug)
 
     context = {
         'cat_selected': post.cat_id,
