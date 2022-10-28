@@ -1,0 +1,19 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+<div class="desc-wrap">
+    <div class="block-desc">
+        <div class="desc-image">
+            {% if post.photo %}
+            <p><img class="desc-img" src="{{ post.photo.url }}"></p>
+            {% endif %}
+        </div>
+        <div class="desc-wrap">
+            <h1 class="block-title">{{ post.title }}</h1>
+            {{ post.content|linebreaks }} <!-- linebreaks - добавляет теги обзаца в статью -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

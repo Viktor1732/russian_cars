@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import *
 
@@ -37,7 +37,16 @@ def contact(request):
 
 
 def show_post(request, post_id):
-    return HttpResponse(f'Отображение статьи с номером id: {post_id}')
+    post = get_object_or_404(Cars, pk=post_id)
+
+    context = {
+        'cat_selected': post.cat_id,
+        'login': login,
+        'menu': menu,
+        'title': post.title,
+        'post': post
+    }
+    return render(request, 'cars/post.html', context=context)
 
 
 def show_categories(request, cat_id):

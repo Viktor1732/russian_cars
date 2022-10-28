@@ -74,7 +74,7 @@ body a {
 
 /*main-nav*/
 .main-nav {
-    width: 18%;
+    width: 20%;
     background-color: #7a7a7a;
     display: flex;
 }
@@ -106,7 +106,7 @@ body a {
 /*content*/
 .content {
     width: 82%;
-    padding: 60px 50px;
+    padding: 30px 50px;
 }
 
 .content-block {
@@ -133,9 +133,10 @@ body a {
 }
 
 .desc-wrap {
-    width: 75%;
-    margin-left: 30px;
+    width: 80%;
+    margin: 30px;
 }
+
 .block-title {
     font-size: 18px;
     font-weight: 700;
