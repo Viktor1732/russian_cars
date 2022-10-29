@@ -33,13 +33,10 @@ def add_page(request):
     """#Проверка формы на заполнение. Если на момент отправки форма заполнена не корректно,
     то вернется заполненная форма."""
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES) #request.FILES - список файлов, переданных на сервер из формы.
         if form.is_valid():
-            try:
-                form.save()
-                return redirect('home')
-            except:
-                form.add_error(None, 'Ошибка добавления поста')
+            form.save()
+            return redirect('home')
     else:
         form = AddPostForm()
     return render(request, 'cars/add_page.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})

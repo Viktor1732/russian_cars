@@ -11,7 +11,7 @@ class AddPostForm(forms.ModelForm):
 
     class Meta:
         model = Cars
-        fields = ['title', 'slug', 'content', 'is_published', 'cat']
+        fields = ['title', 'slug', 'content', 'photo' , 'is_published', 'cat']
         #Прописываю индивидуальные стили для полей.
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
