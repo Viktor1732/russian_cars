@@ -3,11 +3,17 @@ from django import forms
 from .models import *
 
 
-class AddPostForm(forms.Form):
-    """Так прописываем класс widget=forms.TextInput(attrs={'......': '........'}, который используем в CSS"""
-    title = forms.CharField(max_length=255, label="Заголовок", widget=forms.TextInput(attrs={'class': 'form-input'}))
-    slug = forms.SlugField(max_length=255, label="URL")
-    content = forms.CharField(widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}), label="Контент")
-    # required=False - Делает поле необязательным для заполнения, initial=True - делает чекбокс отмеченным.
-    is_published = forms.BooleanField(label="Публикация", initial=True, required=False)
-    cat = forms.ModelChoiceField(queryset=Category.objects.all(), label="Категория", empty_label='Категория не выбрана')
+class AddPostForm(forms.ModelForm):
+    #Для того, чтобы отображалось при выборе категории "категория не выбрана".
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cat'].empty_label = 'Категория не выбрана'
+
+    class Meta:
+        model = Cars
+        fields = ['title', 'slug', 'content', 'is_published', 'cat']
+        #Прописываю индивидуальные стили для полей.
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-input'}),
+            'content': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
+        }
