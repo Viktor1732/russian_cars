@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import *
 from .models import *
 
 menu = [
@@ -29,7 +30,20 @@ def about(request):
 
 
 def add_page(request):
-    return HttpResponse('Добавить статью')
+    """#Проверка формы на заполнение. Если на момент отправки форма заполнена не корректно,
+    то вернется заполненная форма."""
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)
+            try:
+                Cars.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Ошибка добавления поста')
+    else:
+        form = AddPostForm()
+    return render(request, 'cars/add_page.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
 
 
 def contact(request):
