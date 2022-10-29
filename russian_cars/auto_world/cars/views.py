@@ -1,5 +1,6 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 
 from .forms import *
 from .models import *
@@ -12,17 +13,21 @@ menu = [
 login = ["Регистрация", "Войти"]
 
 
-def index(request):
-    posts = Cars.objects.all()
+class CarsHome(ListView):
+    model = Cars
+    template_name = 'cars/index.html'
+    context_object_name = 'posts'
 
-    context = {
-        'cat_selected': 0,
-        'login': login,
-        'menu': menu,
-        'title': 'Главная страница',
-        'posts': posts
-    }
-    return render(request, 'cars/index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        context['cat_selected'] = 0
+        return context
+
+    # Отображает только опубликованные статьи.
+    def get_queryset(self):
+        return Cars.objects.filter(is_published=True)
 
 
 def about(request):
@@ -33,7 +38,7 @@ def add_page(request):
     """#Проверка формы на заполнение. Если на момент отправки форма заполнена не корректно,
     то вернется заполненная форма."""
     if request.method == 'POST':
-        form = AddPostForm(request.POST, request.FILES) #request.FILES - список файлов, переданных на сервер из формы.
+        form = AddPostForm(request.POST, request.FILES)  # request.FILES - список файлов, переданных на сервер из формы.
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -59,20 +64,39 @@ def show_post(request, post_slug):
     return render(request, 'cars/post.html', context=context)
 
 
-def show_categories(request, cat_id):
-    posts = Cars.objects.filter(cat_id=cat_id)
+class CarsCategory(ListView):
+    model = Cars
+    template_name = 'cars/index.html'
+    context_object_name = 'posts'
+    # Генерирует ошибку 404 если в категории нет статей.
+    allow_empty = False
 
-    if len(posts) == 0:
-        raise Http404()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
+        context['cat_selected'] = context['posts'][0].cat_id
+        return context
 
-    context = {
-        'cat_selected': cat_id,
-        'login': login,
-        'menu': menu,
-        'title': 'Главная страница',
-        'posts': posts
-    }
-    return render(request, 'cars/index.html', context=context)
+    # Выбор категории по слагу.
+    def get_queryset(self):
+        return Cars.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
+
+
+# def show_categories(request, cat_id):
+#     posts = Cars.objects.filter(cat_id=cat_id)
+#
+#     if len(posts) == 0:
+#         raise Http404()
+#
+#     context = {
+#         'cat_selected': cat_id,
+#         'login': login,
+#         'menu': menu,
+#         'title': 'Главная страница',
+#         'posts': posts
+#     }
+#     return render(request, 'cars/index.html', context=context)
 
 
 def pageNotFound(request, exception):
