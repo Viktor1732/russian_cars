@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DeleteView
 
 from .forms import *
 from .models import *
@@ -51,17 +51,18 @@ def contact(request):
     return HttpResponse('Обратная связь')
 
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Cars, slug=post_slug)
+class ShowPost(DeleteView):
+    model = Cars
+    template_name = 'cars/post.html'
+    slug_url_kwarg = 'post_slug'  # Прописал переменную для слага использованную в urls.py
+    context_object_name = 'post'
 
-    context = {
-        'cat_selected': post.cat_id,
-        'login': login,
-        'menu': menu,
-        'title': post.title,
-        'post': post
-    }
-    return render(request, 'cars/post.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = context['post']
+        return context
+
 
 
 class CarsCategory(ListView):
@@ -81,22 +82,6 @@ class CarsCategory(ListView):
     # Выбор категории по слагу.
     def get_queryset(self):
         return Cars.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
-
-
-# def show_categories(request, cat_id):
-#     posts = Cars.objects.filter(cat_id=cat_id)
-#
-#     if len(posts) == 0:
-#         raise Http404()
-#
-#     context = {
-#         'cat_selected': cat_id,
-#         'login': login,
-#         'menu': menu,
-#         'title': 'Главная страница',
-#         'posts': posts
-#     }
-#     return render(request, 'cars/index.html', context=context)
 
 
 def pageNotFound(request, exception):
