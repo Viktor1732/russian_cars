@@ -22,6 +22,7 @@ class CarsHome(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
+        context['login'] = login
         context['title'] = 'Главная страница'
         context['cat_selected'] = 0
         return context
@@ -43,6 +44,7 @@ class AddPage(CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
+        context['login'] = login
         context['title'] = 'Добавление статьи'
         return context
 
@@ -60,6 +62,7 @@ class ShowPost(DeleteView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
+        context['login'] = login
         context['title'] = context['post']
         return context
 
@@ -74,6 +77,7 @@ class CarsCategory(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
+        context['login'] = login
         context['title'] = 'Категория - ' + str(context['posts'][0].cat)
         context['cat_selected'] = context['posts'][0].cat_id
         return context
