@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DeleteView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, CreateView
 
 from .forms import *
 from .models import *
@@ -34,17 +35,16 @@ def about(request):
     return render(request, 'cars/about.html', {'menu': menu, 'login': login, 'title': 'О сайте'})
 
 
-def add_page(request):
-    """#Проверка формы на заполнение. Если на момент отправки форма заполнена не корректно,
-    то вернется заполненная форма."""
-    if request.method == 'POST':
-        form = AddPostForm(request.POST, request.FILES)  # request.FILES - список файлов, переданных на сервер из формы.
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = AddPostForm()
-    return render(request, 'cars/add_page.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
+class AddPage(CreateView):
+    form_class = AddPostForm
+    template_name = 'cars/add_page.html'
+    success_url = reverse_lazy('home')  # Перееаправление при отправке формы
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Добавление статьи'
+        return context
 
 
 def contact(request):
@@ -62,7 +62,6 @@ class ShowPost(DeleteView):
         context['menu'] = menu
         context['title'] = context['post']
         return context
-
 
 
 class CarsCategory(ListView):
