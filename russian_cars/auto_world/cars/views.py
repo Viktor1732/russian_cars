@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
@@ -35,10 +36,12 @@ def about(request):
     return render(request, 'cars/about.html', {'menu': menu, 'login': login, 'title': 'О сайте'})
 
 
-class AddPage(DataMixin, CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'cars/add_page.html'
     success_url = reverse_lazy('home')  # Перееаправление при отправке формы
+    login_url = reverse_lazy('home')  # указывает адрес перенаправления для незарегистрированного пользователя
+    # raise_exception = True  # Если прописать, будет появляться окно 'Доступ запрещен 403'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
