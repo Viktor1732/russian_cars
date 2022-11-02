@@ -49,10 +49,12 @@
             {% endif %}
 
             {% for c in cats %}
-                {% if c.pk == cat_selected %}
-                    <li class="selected">{{ c.name }}</li>
-                {% else %}
-                    <li class="main-nav-item"><a href="{{ c.get_absolute_url }}" class="main-nav-link">{{ c.name }}</a></li>
+                {% if c.cars__count > 0 %}
+                    {% if c.pk == cat_selected %}
+                        <li class="selected">{{ c.name }}</li>
+                    {% else %}
+                        <li class="main-nav-item"><a href="{{ c.get_absolute_url }}" class="main-nav-link">{{ c.name }}</a></li>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
 
