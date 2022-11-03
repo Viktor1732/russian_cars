@@ -11,6 +11,8 @@ menu = [
 login = ["Регистрация", "Войти"]
 
 class DataMixin:
+    paginate_by = 3  # Количсество элементов на странице
+
     def get_user_context(self, **kwargs):
         context = kwargs
         cats = Category.objects.annotate(Count('cars'))

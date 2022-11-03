@@ -14,6 +14,11 @@ body a {
     font-weight: 500;
 }
 
+.container {
+    display: flex;
+    width: 100%;
+}
+
 /* header */
 /* nav*/
 .nav {

@@ -36,36 +36,55 @@
     </nav>
 </header>
 
-<section class="main">
-    <h1 class="main-h1"></h1>
-    <!--Sidebar слева-->
-    <div class="main-nav">
-        <ul class="main-nav-items">
+<div class="container">
 
-            {% if cat_selected == 0 %}
-                <li class="selected">Все категории</li>
-            {% else %}
-                <li class="main-nav-item"><a class="main-nav-link" href="{% url 'home' %}">Все категории</a></li>
-            {% endif %}
+        <h1 class="main-h1"></h1>
+        <!--Sidebar слева-->
+        <div class="main-nav">
+            <ul class="main-nav-items">
 
-            {% for c in cats %}
-                {% if c.cars__count > 0 %}
-                    {% if c.pk == cat_selected %}
-                        <li class="selected">{{ c.name }}</li>
-                    {% else %}
-                        <li class="main-nav-item"><a href="{{ c.get_absolute_url }}" class="main-nav-link">{{ c.name }}</a></li>
-                    {% endif %}
+                {% if cat_selected == 0 %}
+                    <li class="selected">Все категории</li>
+                {% else %}
+                    <li class="main-nav-item"><a class="main-nav-link" href="{% url 'home' %}">Все категории</a></li>
                 {% endif %}
-            {% endfor %}
 
-        </ul>
-    </div>
-    {% endblock mainmenu %}
+                {% for c in cats %}
+                    {% if c.cars__count > 0 %}
+                        {% if c.pk == cat_selected %}
+                            <li class="selected">{{ c.name }}</li>
+                        {% else %}
+                            <li class="main-nav-item"><a href="{{ c.get_absolute_url }}" class="main-nav-link">{{ c.name }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        {% endblock mainmenu %}
 
     <!--content-->
-    {%block content%}
-    {% endblock content %}
-</section>
+    <div class="content">
+        {%block content%}
+        {% endblock content %}
+        {% if page_obj.has_other_pages %}
+        <nav class="list-pages">
+            <ul>
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-num page-num-selected">{{ p }}</li>
+                {% else %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
 
 <!--footer-->
 <footer class="footer">
