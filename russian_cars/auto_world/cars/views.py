@@ -109,10 +109,13 @@ class RegisterUser(DataMixin, CreateView):
 
 class LoginUser(DataMixin, LoginView):
     template_name = 'cars/login.html'
-    form_class = AuthenticationForm
+    form_class = LoginUserForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Авторизацаия')
         context = dict(list(context.items()) + list(c_def.items()))
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
