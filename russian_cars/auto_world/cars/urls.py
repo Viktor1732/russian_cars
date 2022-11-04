@@ -7,8 +7,8 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('add_page/', AddPage.as_view(), name='add_page'),
     path('contact/', contact, name='contact'),
-    path('registr/', RegisterUser.as_view(), name='register'),
-    path('login/', login, name='login'),
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('login/', LoginUser.as_view(), name='login'),
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
     path('cats/<slug:cat_slug>/', CarsCategory.as_view(), name='cats'),
 ]

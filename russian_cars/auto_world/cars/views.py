@@ -1,8 +1,10 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
@@ -13,6 +15,7 @@ menu = [
     {'title': "Добавить статью", 'url_name': "add_page"},
     {'title': "Обратная связь", 'url_name': "contact"}
 ]
+
 
 class CarsHome(DataMixin, ListView):
     model = Cars
@@ -34,15 +37,12 @@ def about(request):
     return render(request, 'cars/about.html', {'menu': menu, 'login': login, 'title': 'О сайте'})
 
 
-def login(request):
-    return HttpResponse('АВТОРИЗАЦИЯ')
-
-
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'cars/add_page.html'
     success_url = reverse_lazy('home')  # Перееаправление при отправке формы
     login_url = reverse_lazy('home')  # указывает адрес перенаправления для незарегистрированного пользователя
+
     # raise_exception = True  # Если прописать, будет появляться окно 'Доступ запрещен 403'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -100,5 +100,19 @@ class RegisterUser(DataMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Регистрация')
+        context = dict(list(context.items()) + list(c_def.items()))
+        return context
+
+
+# def login(request):
+#     return HttpResponse("AUTORIZATON")
+
+class LoginUser(DataMixin, LoginView):
+    template_name = 'cars/login.html'
+    form_class = AuthenticationForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизацаия')
         context = dict(list(context.items()) + list(c_def.items()))
         return context
