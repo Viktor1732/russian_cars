@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -13,8 +14,6 @@ menu = [
     {'title': "Добавить статью", 'url_name': "add_page"},
     {'title': "Обратная связь", 'url_name': "contact"}
 ]
-login = ["Регистрация", "Войти"]
-
 
 class CarsHome(DataMixin, ListView):
     model = Cars
@@ -34,6 +33,10 @@ class CarsHome(DataMixin, ListView):
 
 def about(request):
     return render(request, 'cars/about.html', {'menu': menu, 'login': login, 'title': 'О сайте'})
+
+
+def login(request):
+    return HttpResponse('АВТОРИЗАЦИЯ')
 
 
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
@@ -90,3 +93,13 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
+class RegisterUser(DataMixin, CreateView):
+    form_class = UserCreationForm
+    template_name = 'cars/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        context = dict(list(context.items()) + list(c_def.items()))
+        return context

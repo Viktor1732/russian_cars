@@ -28,9 +28,8 @@
         </div>
         <div class="login">
             <ul class="nav-items">
-                {% for l in login %}
-                <li class="nav-item"><a class="nav-link" href="#!">{{ l }}</a></li>
-                {% endfor %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вход</a></li>
             </ul>
         </div>
     </nav>
