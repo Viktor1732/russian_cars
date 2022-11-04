@@ -1,4 +1,3 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -94,7 +93,7 @@ def pageNotFound(request, exception):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = UserCreationForm
+    form_class = RegisterUserForm
     template_name = 'cars/register.html'
     success_url = reverse_lazy('login')
 
