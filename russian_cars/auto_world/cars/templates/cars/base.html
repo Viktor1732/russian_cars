@@ -28,8 +28,12 @@
         </div>
         <div class="login">
             <ul class="nav-items">
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вход</a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">{{ user.username }} | <a class="nav-link" href="{% url 'logout' %}">ВЫХОД</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вход</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
