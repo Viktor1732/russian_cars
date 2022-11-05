@@ -11,7 +11,7 @@ menu = [
 login = ["Регистрация", "Войти"]
 
 class DataMixin:
-    paginate_by = 3  # Количсество элементов на странице
+    paginate_by = 4  # Количсество элементов на странице
 
     def get_user_context(self, **kwargs):
         context = kwargs
