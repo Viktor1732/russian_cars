@@ -1,5 +1,7 @@
 {% load static %}
 {% load cars_tags %} <!--Загрузка тегов-->
+{% load cache %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -43,6 +45,7 @@
 
         <h1 class="main-h1"></h1>
         <!--Sidebar слева-->
+        {% cache 60 sidebar %}
         <div class="main-nav">
             <ul class="main-nav-items">
 
@@ -64,7 +67,7 @@
 
             </ul>
         </div>
-
+        {% endcache sidebar %}
         {% endblock mainmenu %}
 
     <!--content-->
