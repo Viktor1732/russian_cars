@@ -22,6 +22,7 @@ from cars.views import pageNotFound
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('captcha/', include('captcha.urls')),
     path('', include('cars.urls')),
 ]
 
