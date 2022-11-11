@@ -91,7 +91,7 @@ class CarsCategory(DataMixin, ListView):
         context = super().get_context_data(**kwargs)
         c = Category.objects.get(slug=self.kwargs['cat_slug'])
         c_def = self.get_user_context(title='Категория - ' + str(c.name),
-                                      cat_selected=c.cat_id)
+                                      cat_selected=c.pk)
         context = dict(list(context.items()) + list(c_def.items()))
         return context
 
